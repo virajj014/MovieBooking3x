@@ -3,6 +3,7 @@ import React from 'react'
 import Select from 'react-select'
 import '../Popup.css'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 const LocationPopup = (
     {
         setShowLocationPopup
@@ -12,6 +13,9 @@ const LocationPopup = (
 ) => {
 
     const [cities, setCities] = React.useState<any[]>([])
+
+
+    const [selectedCity, setSelectedCity] = React.useState<any>(null)
 
     const getcities = async () => {
         const indianCities = [
@@ -36,7 +40,7 @@ const LocationPopup = (
             "Pimpri-Chinchwad",
             "Patna",
             "Vadodara"
-          ];
+        ];
 
         const cities = indianCities.map((city) => {
             return {
@@ -54,13 +58,44 @@ const LocationPopup = (
     }, [])
 
     const handleSave = () => {
-        setShowLocationPopup(false)
+        // setShowLocationPopup(false)
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/auth/changeCity`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                city: selectedCity
+            })
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.ok) {
+                    // toast(data.message, {
+                    //     type: 'success'
+                    // })
+                    setShowLocationPopup(false)
+                    window.location.reload()
+                }
+            })
+            .catch((err) => {
+                toast(err.message, {
+                    type: 'error'
+                })
+                console.log(err)
+            })
     }
 
     return (
         <div className='popup-bg'>
             <div className='popup-cont'>
-                <select>
+                <select
+                    className='select'
+                    onChange={(e) => {
+                        setSelectedCity(e.target.value)
+                    }}
+                >
                     <option value="" disabled selected>Select your city</option>
                     {
                         cities.map((city: any) => {

@@ -11,11 +11,15 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import CelebCard from '@/components/CelebCard/CelebCard';
-import { usePathname } from 'next/navigation'
+import { usePathname, useParams } from 'next/navigation'
 import Link from 'next/link';
 
 const MoviePage = () => {
     const pathname = usePathname()
+    const params = useParams()
+    const { moviename } = params
+    console.log(moviename)
+
     const movie = {
         wideposter: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/listing/xxlarge/jawan-et00330424-1693892482.jpg",
         portraitposter: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/jawan-et00330424-1693892482.jpg",

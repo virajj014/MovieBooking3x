@@ -11,53 +11,65 @@ import MovieCard from './MovieCard';
 
 const MovieCarousel = () => {
 
-    const Movies: MovieCardType[] = [
-        {
-            title: "Jawan",
-            imageUrl: "https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@star-icon-202203010609.png,ox-24,oy-615,ow-29:ote-OC41LzEwICA0MjMuMUsgVm90ZXM%3D,ots-29,otc-FFFFFF,oy-612,ox-70:q-80/et00330424-jpbcmkezwq-portrait.jpg",
-            _id: "1",
-            rating: 8.5,
-            type: "Action/Thriller"
-        },
-        {
-            title: "Jawan",
-            imageUrl: "https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@star-icon-202203010609.png,ox-24,oy-615,ow-29:ote-OC41LzEwICA0MjMuMUsgVm90ZXM%3D,ots-29,otc-FFFFFF,oy-612,ox-70:q-80/et00330424-jpbcmkezwq-portrait.jpg",
-            _id: "2",
-            rating: 8.5,
-            type: "Action/Thriller"
-        },
-        {
-            title: "Jawan",
-            imageUrl: "https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@star-icon-202203010609.png,ox-24,oy-615,ow-29:ote-OC41LzEwICA0MjMuMUsgVm90ZXM%3D,ots-29,otc-FFFFFF,oy-612,ox-70:q-80/et00330424-jpbcmkezwq-portrait.jpg",
-            _id: "3",
-            rating: 8.5,
-            type: "Action/Thriller"
-        },
-        {
-            title: "Jawan",
-            imageUrl: "https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@star-icon-202203010609.png,ox-24,oy-615,ow-29:ote-OC41LzEwICA0MjMuMUsgVm90ZXM%3D,ots-29,otc-FFFFFF,oy-612,ox-70:q-80/et00330424-jpbcmkezwq-portrait.jpg",
-            _id: "4",
-            rating: 8.5,
-            type: "Action/Thriller"
-        },
-        {
-            title: "Jawan",
-            imageUrl: "https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@star-icon-202203010609.png,ox-24,oy-615,ow-29:ote-OC41LzEwICA0MjMuMUsgVm90ZXM%3D,ots-29,otc-FFFFFF,oy-612,ox-70:q-80/et00330424-jpbcmkezwq-portrait.jpg",
-            _id: "5",
-            rating: 8.5,
-            type: "Action/Thriller"
-        },
-        {
-            title: "Jawan",
-            imageUrl: "https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@star-icon-202203010609.png,ox-24,oy-615,ow-29:ote-OC41LzEwICA0MjMuMUsgVm90ZXM%3D,ots-29,otc-FFFFFF,oy-612,ox-70:q-80/et00330424-jpbcmkezwq-portrait.jpg",
-            _id: "6",
-            rating: 8.5,
-            type: "Action/Thriller"
-        }
-    ];
+    const [user, setUser] = React.useState<any>(null)
+    const getuser = async () => {
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/auth/getuser`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include'
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((response) => {
+                console.log(response)
+                if(response.ok){
+                    setUser(response.data)
+                }
+                else{
+                    window.location.href = "/auth/signin"
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
+    }
+
+    
+    const [movies, setMovies] = React.useState<MovieCardType[]>([])
+
+    const getMovies = async () => {
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/movie/movies`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include'
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if(data.ok){
+                    console.log(data)
+                    setMovies(data.data)
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+    React.useEffect(() => {
+        getMovies()
+        getuser()
+    }, [])
     return (
         <div className='sliderout'>
-            <Swiper
+            {
+                movies && user && 
+                <Swiper
                 slidesPerView={1}
                 spaceBetween={1}
                 pagination={{
@@ -85,15 +97,19 @@ const MovieCarousel = () => {
                 className="mySwiper"
             >
                 {
-                    Movies.map((Movie) => {
+                    movies.map((Movie) => {
                         return (
-                            <SwiperSlide>
-                                <MovieCard {...Movie} />
+                            <SwiperSlide key={Movie._id}>
+                                <MovieCard 
+                                    Movie={Movie}
+                                    user={user}
+                                />
                             </SwiperSlide>
                         )
                     })
                 }
             </Swiper>
+            }
         </div>
     )
 }

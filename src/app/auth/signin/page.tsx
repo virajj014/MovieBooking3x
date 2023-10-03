@@ -45,45 +45,45 @@ export default function Signin() {
             return;
         }
 
-
-        // fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/auth/login`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(formData),
-        //     credentials: 'include'
-        // })
-        //     .then((res) => {
-        //         return res.json();
-        //     })
-        //     .then(async (response) => {
-        //         if (response.ok) {
-        //             toast(response.message, {
-        //                 type: 'success',
-        //                 position: 'top-right',
-        //                 autoClose: 2000
-        //             })
-        //             // await setCookie('authToken', response.data.authToken)
-        //             // await setCookie('refreshToken', response.data.refreshToken)
-        //             // const authToken = await getCookie('authToken');
-        //             // console.log('My Cookie Value:', authToken);
-        //             checkLogin()
-        //         } else {
-        //             toast(response.message, {
-        //                 type: 'error',
-        //                 position: 'top-right',
-        //                 autoClose: 2000
-        //             });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         toast(error.message, {
-        //             type: 'error',
-        //             position: 'top-right',
-        //             autoClose: 2000
-        //         });
-        //     })
+console.log(process.env.NEXT_PUBLIC_BACKEND_API)
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+            credentials: 'include'
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then(async (response) => {
+                if (response.ok) {
+                    toast(response.message, {
+                        type: 'success',
+                        position: 'top-right',
+                        autoClose: 2000
+                    })
+                    // await setCookie('authToken', response.data.authToken)
+                    // await setCookie('refreshToken', response.data.refreshToken)
+                    // const authToken = await getCookie('authToken');
+                    // console.log('My Cookie Value:', authToken);
+                    checkLogin()
+                } else {
+                    toast(response.message, {
+                        type: 'error',
+                        position: 'top-right',
+                        autoClose: 2000
+                    });
+                }
+            })
+            .catch((error) => {
+                toast(error.message, {
+                    type: 'error',
+                    position: 'top-right',
+                    autoClose: 2000
+                });
+            })
     };
 
     const checkLogin = async () => {
