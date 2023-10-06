@@ -3,7 +3,7 @@ import React from 'react'
 import { BsShare } from 'react-icons/bs'
 import { BsFillStarFill } from 'react-icons/bs';
 import './MoviePage.css'
-import MovieCarousel from '@/components/MovieCarousel/MovieCarousel';
+import MovieCarousel from '@/components/moviecarousel/MovieCarousel';
 
 
 import 'swiper/css';
