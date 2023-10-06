@@ -133,7 +133,6 @@ export default function Signin() {
 
     return (
         <div className='authout'>
-
             <div className='authin'>
                 <div className="left">
                     <Image src={logo} alt="" className='img' />
@@ -176,12 +175,11 @@ export default function Signin() {
                         </button>
 
                         <p className="authlink">
-                            Don't have an account? <Link href="/auth/signup">Register</Link>
+                            Don&apos;t have an account? <Link href="/auth/signup">Register</Link>
                         </p>
                     </form>
                 </div>
-
             </div>
-        </div >
+        </div>
     )
 }

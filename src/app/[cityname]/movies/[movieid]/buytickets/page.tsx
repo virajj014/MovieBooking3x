@@ -5,7 +5,7 @@ import './BuyTicketsPage.css'
 import Link from 'next/link';
 import { usePathname, useParams } from 'next/navigation'
 
-const page = () => {
+const BuyTicketsPage  = () => {
     const pathname = usePathname()
     const params = useParams()
     const [selectedDate, setSelectedDate] = React.useState<any>(new Date())
@@ -166,4 +166,4 @@ const page = () => {
     )
 }
 
-export default page
+export default BuyTicketsPage 

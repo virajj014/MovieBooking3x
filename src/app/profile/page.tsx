@@ -2,7 +2,7 @@
 import React from 'react'
 import './ProfilePage.css'
 
-const page = () => {
+const ProfilePage  = () => {
     const [bookings, setBookings] = React.useState<any>(null)
     const [user, setUser] = React.useState<any>(null)
 
@@ -216,4 +216,4 @@ const page = () => {
     )
 }
 
-export default page
+export default ProfilePage 

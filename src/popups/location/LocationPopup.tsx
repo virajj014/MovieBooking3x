@@ -99,7 +99,7 @@ const LocationPopup = (
                     <option value="" disabled selected>Select your city</option>
                     {
                         cities.map((city: any) => {
-                            return <option value={city.value}>{city.label}</option>
+                            return <option key={city.value} value={city.value}>{city.label}</option>
                         })
                     }
                 </select>
