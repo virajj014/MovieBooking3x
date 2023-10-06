@@ -98,7 +98,9 @@ const Navbar = () => {
     return (
         <nav>
             <div className='left'>
-                <Image src={logo} alt="logo" width={100} height={100} />
+                <Image src={logo} alt="logo" width={100} height={100}
+                    onClick={() => window.location.href = "/"}
+                />
                 <div className='searchbox'>
                     <BiSearch className='searchbtn' />
                     <input type="text" placeholder="Search For a Movie" />
@@ -119,7 +121,7 @@ const Navbar = () => {
                         </Link>
 
                }
-                <Link href="/" className='linkstylenone'>
+                <Link href="/profile" className='linkstylenone'>
                     <BiUserCircle className='theme_icon1' />
                 </Link>
             </div>
