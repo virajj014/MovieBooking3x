@@ -45,7 +45,7 @@ export default function Signin() {
             return;
         }
 
-console.log(process.env.NEXT_PUBLIC_BACKEND_API)
+        console.log(process.env.NEXT_PUBLIC_BACKEND_API)
         fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/auth/login`, {
             method: 'POST',
             headers: {
@@ -58,6 +58,7 @@ console.log(process.env.NEXT_PUBLIC_BACKEND_API)
                 return res.json();
             })
             .then(async (response) => {
+                console.log('login res ', response)
                 if (response.ok) {
                     toast(response.message, {
                         type: 'success',
@@ -96,13 +97,14 @@ console.log(process.env.NEXT_PUBLIC_BACKEND_API)
             headers: {
                 'Content-Type': 'application/json',
             },
-            credentials: 'include'
+            credentials: 'include',
+
         })
             .then((res) => {
                 return res.json();
             })
             .then((response) => {
-                console.log(response)
+                console.log('check login res ', response)
 
 
 
