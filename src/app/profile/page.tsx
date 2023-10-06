@@ -156,7 +156,7 @@ const ProfilePage  = () => {
                     {
                         bookings?.map((booking: any) => {
                             return (
-                                <div className='booking'>
+                                <div className='booking' key={booking._id}>
                                     <div className='detail'>
                                         <h3>Movie</h3>
                                         <p>{booking.movieId.title}</p>
