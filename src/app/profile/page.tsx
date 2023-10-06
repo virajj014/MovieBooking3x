@@ -169,9 +169,11 @@ const ProfilePage  = () => {
 
                                     <div className='detail'>
                                         <h3>Seats</h3>
-                                        <p>{booking.seats.map((seat: any) => {
+                                        <p>{booking.seats.map((seat: any, index:any) => {
                                             return (
-                                                <span>{seat.seat_id}, </span>
+                                                <span 
+                                                key={index}
+                                                >{seat.seat_id}, </span>
                                             )
                                         }
                                         )}</p>
